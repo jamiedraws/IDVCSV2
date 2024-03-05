@@ -1,0 +1,337 @@
+$select: ".content" !default;
+
+// config
+@use "../config/colors";
+@use "../config/queries";
+
+// layouts
+@use "../layouts/section" as override-section;
+
+// themes
+@use "../../../Shared/css/template/base/themes/background";
+
+// media
+@use "../../../Shared/css/template/base/media/contain";
+
+// abstracts
+@use "../../../Shared/css/template/base/abstracts/group";
+@use "../../../Shared/css/template/base/abstracts/copy";
+@use "../../../Shared/css/template/base/abstracts/position";
+
+%separate-text {
+    @include copy.separate(1em);
+}
+
+%contain-space {
+    padding: 2em 0;
+}
+
+%set-base-copy {
+    font-size: 1.75em;
+}
+
+%set-fluid-copy {
+    @media all and (max-width: queries.get(document-sm)) {
+        font-size: 0.75em;
+        font-size: clamp(0.75em, 2.5vw, 1em);
+    }
+}
+
+@mixin base {
+    #{$select} {
+        text-align: center;
+        color: colors.get(accent);
+        font-weight: 300;
+
+        p {
+            @extend %set-base-copy;
+        }
+
+        &__title {
+            font-weight: 300;
+            line-height: 1.25;
+            letter-spacing: -0.025em;
+            color: colors.get(dark);
+        }
+
+        &__group {
+            @include group.contain(0.75rem);
+            @include group.flexchild(1 1 auto);
+        }
+
+        @content;
+    }
+}
+
+@mixin text {
+    #{$select} {
+        &--text {
+            overflow: hidden;
+            text-align: left;
+            color: colors.get(dark);
+
+            p {
+                font-size: 1.1em;
+            }
+
+            #{$select} {
+                &__title {
+                    font-size: 3.5em;
+
+                    @media all and (max-width: queries.get(document-sm)) {
+                        font-size: 3em;
+                        font-size: clamp(3em, 12.5vw, 3.5em);
+                    }
+                }
+
+                &__text {
+                    @include copy.separate;
+                }
+            }
+
+            @content;
+        }
+    }
+}
+
+@mixin title-text {
+    #{$select} {
+        &--title-text {
+            @extend %contain-space;
+            @extend %set-fluid-copy;
+
+            p {
+                max-width: 33em;
+                margin: auto;
+            }
+
+            #{$select} {
+                &__title {
+                    font-size: 3.5em;
+
+                    @media all and (max-width: queries.get(document-sm)) {
+                        font-size: 3em;
+                    }
+
+                    b {
+                        font-weight: 900;
+                    }
+                }
+            }
+
+            @content;
+        }
+    }
+}
+
+@mixin contain-title-text {
+    @include title-text {
+        max-width: 66em;
+        margin: auto;
+
+        @content;
+    }
+}
+
+@mixin title-images {
+    #{$select} {
+        &--title-images {
+            @extend %contain-space;
+            @extend %separate-text;
+            margin-bottom: 2em;
+
+            #{$select} {
+                &__group {
+                    justify-content: center;
+                }
+
+                &__title {
+                    font-size: 6.4em;
+
+                    @media all and (max-width: queries.get(document-sm)) {
+                        font-size: 3em;
+                        font-size: clamp(3em, 12.5vw, 6.8em);
+                    }
+
+                    font-weight: 100;
+                    color: colors.get(accent-alternative);
+                }
+            }
+
+            @content;
+        }
+    }
+}
+
+@mixin text-image {
+    #{$select} {
+        &--text-image {
+            position: relative;
+
+            @extend %set-fluid-copy;
+
+            #{$select} {
+                &__image-bg {
+                    @include position.center-absolute;
+                    pointer-events: none;
+                    opacity: 0.4;
+                    z-index: 3;
+                    overflow: hidden;
+
+                    > img {
+                        transform-origin: center 30%;
+                        transform: scale(1.55);
+                    }
+                }
+
+                &__group {
+                    @include group.gutter(0);
+                    @include group.flexchild(1 1 44em);
+                }
+
+                &__title {
+                    font-size: 2.8em;
+                    color: colors.get(primary);
+                }
+
+                &__text {
+                    @include background.color-map(
+                        colors.get(highlight),
+                        colors.get(accent)
+                    );
+
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    align-items: center;
+
+                    @include override-section.set-frame;
+                }
+
+                &__contain-text {
+                    @extend %separate-text;
+
+                    max-width: 39em;
+                    font-size: 0.9em;
+
+                    position: relative;
+                    z-index: 3;
+                }
+            }
+
+            @content;
+        }
+    }
+}
+
+@mixin icon-caption-text {
+    #{contain.$select} {
+        &--icon {
+            @include contain.ratio(151/145) {
+                max-width: 9.15em;
+            }
+        }
+    }
+
+    #{$select} {
+        &--icon-caption-text {
+            @extend %set-fluid-copy;
+            @include copy.separate;
+            font-size: 0.85em;
+            max-width: 78em;
+            margin: auto;
+
+            figcaption {
+                @extend %set-base-copy;
+                letter-spacing: 0.05em;
+                font-weight: 300;
+                margin-top: 0.5em;
+            }
+
+            picture {
+                margin-left: auto;
+                margin-right: auto;
+                font-size: 0.75em;
+            }
+
+            [data-src-img$="pet.jpg"] ~ figcaption {
+                transform: translateX(1em);
+            }
+
+            #{$select} {
+                &__title {
+                    font-size: 3.5em;
+                    max-width: 20em;
+                    margin: auto;
+                }
+
+                &__group {
+                    align-items: flex-start;
+                }
+
+                &__icon-caption {
+                    text-transform: uppercase;
+                    flex-basis: 9.15em;
+
+                    @media all and (max-width: 78.125rem) {
+                        flex-basis: 30%;
+                    }
+                }
+
+                &__text {
+                    color: colors.get(dark);
+                    font-weight: 500;
+
+                    margin: 2rem auto 0;
+                }
+            }
+
+            @content;
+        }
+    }
+}
+
+@mixin icon-text {
+    #{contain.$select} {
+        &--icon {
+            @include contain.ratio(172/183) {
+                max-width: 9.15em;
+            }
+        }
+    }
+
+    #{$select} {
+        &--icon-text {
+            @extend %set-fluid-copy;
+            max-width: 90em;
+            margin: auto;
+            font-size: 0.85em;
+
+            figcaption {
+                @extend %set-base-copy;
+                line-height: 1.25;
+                margin-left: auto;
+                margin-right: auto;
+                max-width: 13em;
+            }
+
+            picture {
+                margin-left: auto;
+                margin-right: auto;
+                font-size: 0.85em;
+            }
+
+            #{$select} {
+                &__group {
+                    @include group.flexchild(0 1 28em);
+                }
+
+                &__text {
+                    @include copy.separate;
+                }
+            }
+
+            @content;
+        }
+    }
+}

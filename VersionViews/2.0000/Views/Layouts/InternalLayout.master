@@ -1,0 +1,299 @@
+﻿<%@ Master Language="C#" Inherits="System.Web.Mvc.ViewMasterPage<OrderPageViewData>" %>
+<%@ Import Namespace="Dtm.Framework.ClientSites" %>
+<%@ Import Namespace="IDVCSV2.Models" %>
+
+<%
+    var getFacebookImage = SettingsManager.ContextSettings["SocialPlugins.Facebook.OpenGraphImage"]; 
+    var getTwitterImage = SettingsManager.ContextSettings["SocialPlugins.Twitter.OpenGraphImage"];
+    var productName = SettingsManager.ContextSettings["Label.ProductName"];
+%>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+	<title><%= Model.PageTitle %></title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="<%= Model.PageMetaDescription %>">
+	<meta name="keywords" content="<%= Model.PageMetaKeywords %>">
+
+    <!-- // Open Graph Metadata -->
+    <meta property="og:title" content="<%= Model.PageTitle %>">
+    <meta property="og:type" content="website">
+    <meta property="og:description" content="<%= Model.PageMetaDescription %>">
+    <meta property="og:url" content="<%= DtmContext.Domain.FullDomainOfferVersionContext %>">
+    <meta property="og:image" content="<%= getFacebookImage %>">
+
+    <!-- // Twitter Metadata -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="<%= Model.PageTitle %>">
+    <meta name="twitter:description" content="<%= Model.PageMetaDescription %>">
+    <meta name="twitter:image" content="<%= getTwitterImage %>">
+    <meta name="twitter:domain" content="<%= DtmContext.Domain.FullDomainOfferVersionContext %>">
+
+    <% if (DtmContext.IsProxyIpAddress || DtmContext.CampaignDomains.Any(d => d.DomainId == DtmContext.DomainId && d.Domain.ToLower().Contains("dtmstage")))
+        { %>
+
+    <meta name="robots" content="noindex, nofollow" />
+
+    <% }
+    else
+    { %>
+
+    <meta name="google-site-verification" content="<%= Model.PageMetaVerify %>">
+    <meta name="msvalidate.01" content="2917D7D7D8F86474F86BEC25A9F8D71E">
+    <link rel="canonical" href="https://<%= Request.Url.Host %>">
+
+    <% } %>
+
+    <link rel="manifest" href="/site.webmanifest">
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#fdb927">
+    <link rel="apple-touch-icon" href="/apple-icon-180.png">
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#ffffff">
+    <meta name="apple-mobile-web-app-title" content="<%= productName %>">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="theme-color" content="#ffffff">
+
+    <link rel="apple-touch-startup-image" href="/apple-splash-2048-2732.jpg" media="(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)">
+    <link rel="apple-touch-startup-image" href="/apple-splash-2732-2048.jpg" media="(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)">
+    <link rel="apple-touch-startup-image" href="/apple-splash-1668-2388.jpg" media="(device-width: 834px) and (device-height: 1194px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)">
+    <link rel="apple-touch-startup-image" href="/apple-splash-2388-1668.jpg" media="(device-width: 834px) and (device-height: 1194px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)">
+    <link rel="apple-touch-startup-image" href="/apple-splash-1536-2048.jpg" media="(device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)">
+    <link rel="apple-touch-startup-image" href="/apple-splash-2048-1536.jpg" media="(device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)">
+    <link rel="apple-touch-startup-image" href="/apple-splash-1668-2224.jpg" media="(device-width: 834px) and (device-height: 1112px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)">
+    <link rel="apple-touch-startup-image" href="/apple-splash-2224-1668.jpg" media="(device-width: 834px) and (device-height: 1112px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)">
+    <link rel="apple-touch-startup-image" href="/apple-splash-1620-2160.jpg" media="(device-width: 810px) and (device-height: 1080px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)">
+    <link rel="apple-touch-startup-image" href="/apple-splash-2160-1620.jpg" media="(device-width: 810px) and (device-height: 1080px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)">
+    <link rel="apple-touch-startup-image" href="/apple-splash-1284-2778.jpg" media="(device-width: 428px) and (device-height: 926px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)">
+    <link rel="apple-touch-startup-image" href="/apple-splash-2778-1284.jpg" media="(device-width: 428px) and (device-height: 926px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)">
+    <link rel="apple-touch-startup-image" href="/apple-splash-1170-2532.jpg" media="(device-width: 390px) and (device-height: 844px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)">
+    <link rel="apple-touch-startup-image" href="/apple-splash-2532-1170.jpg" media="(device-width: 390px) and (device-height: 844px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)">
+    <link rel="apple-touch-startup-image" href="/apple-splash-1125-2436.jpg" media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)">
+    <link rel="apple-touch-startup-image" href="/apple-splash-2436-1125.jpg" media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)">
+    <link rel="apple-touch-startup-image" href="/apple-splash-1242-2688.jpg" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)">
+    <link rel="apple-touch-startup-image" href="/apple-splash-2688-1242.jpg" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)">
+    <link rel="apple-touch-startup-image" href="/apple-splash-828-1792.jpg" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)">
+    <link rel="apple-touch-startup-image" href="/apple-splash-1792-828.jpg" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)">
+    <link rel="apple-touch-startup-image" href="/apple-splash-1242-2208.jpg" media="(device-width: 414px) and (device-height: 736px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)">
+    <link rel="apple-touch-startup-image" href="/apple-splash-2208-1242.jpg" media="(device-width: 414px) and (device-height: 736px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)">
+    <link rel="apple-touch-startup-image" href="/apple-splash-750-1334.jpg" media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)">
+    <link rel="apple-touch-startup-image" href="/apple-splash-1334-750.jpg" media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)">
+    <link rel="apple-touch-startup-image" href="/apple-splash-640-1136.jpg" media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)">
+    <link rel="apple-touch-startup-image" href="/apple-splash-1136-640.jpg" media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)">
+
+    <script>const covid = "<%= DtmContext.VersionId %>";</script>
+    <%= Html.Partial("ResourceManager") %>
+
+    <noscript>
+        <style>
+            .defer::after {
+                display: none;
+            }
+
+            .defer__progress {
+                visibility: visible;
+                opacity: 1;
+            }
+        </style>
+    </noscript>
+
+    <asp:ContentPlaceHolder ID="head" runat="server"></asp:ContentPlaceHolder>
+
+</head>
+<body>
+    <%
+        var sitemap = new NavigationList();
+
+        sitemap.AddItem(new NavigationItem { 
+            Id = "home",
+            Name = "Home",
+            Page = "Index",
+            Label = "Idea Village",
+            Hash = "#main"
+        });
+
+        sitemap.AddItem(new NavigationItem { 
+            Id = "who-we-are",
+            Name = "Who We Are",
+            Page = "Who-We-Are",
+            Hash = "#main"
+        });
+
+        sitemap.AddItem(new NavigationItem { 
+            Id = "idv-ventures",
+            Name = "IDV Ventures",
+            Page = "Become-A-Partner",
+            Hash = "#main"
+        });
+
+        sitemap.AddItem(new NavigationItem { 
+            Id = "contact-us",
+            Name = "Contact Us",
+            Page = "Become-A-Partner",
+            Hash = "#contact",
+            ApplyHash = true
+        });
+
+        sitemap.AddItem(new NavigationItem { 
+            Id = "privacy-policy",
+            Name = "Privacy Policy",
+            Page = "Privacy-Policy",
+            Hash = "#main"
+        });
+
+        var navIdList = new string[] { "who-we-are", "idv-ventures" };
+        var navList = sitemap.Entries.Where(item => navIdList.Contains(item.Id)).ToList();
+
+        var homeItem = sitemap.GetItemById("home");
+    %>
+    <header aria-label="Logo and navigation" class="view nav section">
+        <span class="skip-link">
+            <a href="#main" class="skip-link__button" id="skip-link"
+                ><span>Skip To Main Content?</span></a
+            >
+        </span>
+        <div class="view__in section__in nav__group nav__in">
+            <a href="<%= homeItem.Page %>" class="contain contain--logo"
+                ><img src="/images/2.0000/logo.jpg" alt="<%= homeItem.Label %>"
+            /></a>
+            <button
+                type="button"
+                class="nav__label"
+                aria-label="Toggle Menu"
+            >
+                <span></span>
+            </button>
+            <div
+                class="nav__underlay nav__hide-on-bar"
+                role="presentation"
+            ></div>
+            <div class="nav__pane">
+                <div class="nav__group nav__in">
+                    <nav aria-label="Main navigation" class="nav__list">
+                        <a href="<%= homeItem.Page %>" class="nav__logo contain contain--logo"
+                            ><img
+                                src="/images/2.0000/logo.jpg"
+                                alt="<%= homeItem.Label %>"
+                        /></a>
+                        <% foreach (var navItem in navList) { %>
+                            <a class="nav__link" href="<%= navItem.Page %>">
+                                <span><%= navItem.Name %></span>
+                            </a>
+                        <% } %>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <asp:ContentPlaceHolder ID="MainContent" runat="server"></asp:ContentPlaceHolder>
+
+    <footer class="view footer section">
+        <div class="view__in section__in">
+            <div class="footer__list-text-copyright">
+                <div class="footer__group">
+                    <div class="footer__list-text content-reveal">
+                        <nav aria-label="Sitemap">
+                            <% 
+                                var footerIdList = new string[] { "home" };
+                                var footerList = sitemap.Entries.Where(item => !footerIdList.Contains(item.Id)).ToList();   
+                     
+                                foreach (var footerItem in footerList)
+                                {
+                                    %>
+                                    <a href="<%= footerItem.Page %>"><%= footerItem.Name %></a>
+                                    <%
+                                }
+                            %>
+                        </nav>
+                        <div class="footer__text-link content-reveal">
+                            For questions about our products, please email
+                            <a
+                                href="mailto:customerservice@ideavillage.com"
+                                >customerservice@ideavillage.com</a
+                            >
+                        </div>
+                    </div>
+                    <div class="footer__copyright content-reveal">
+                        <picture
+                            class="
+                                contain contain--idv-icon-circle
+                                footer__icon
+                            "
+                            data-src-img="/images/icons/idv-circle-gray.png"
+                            data-attr='{ "alt" : "Decorative graphic of the ideavillage logo i" }'
+                        ></picture>
+                        <div class="footer__text-link">
+                            If you are an inventor and your product is not in
+                            the market, please
+                            <a
+                                class="link"
+                                href="https://marketblast.com/submit/idea-village/"
+                                target="_blank"
+                                rel="noopener"
+                                >submit your idea or invention here. <span class="link__advisal"> <span class="link__container">Opens in a new window</span></span></a
+                            >
+                        </div>
+                        <div class="copyright content-reveal">
+                            &copy; Ideavillage Products Corp. All Rights
+                            Reserved.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <div class="modal" role="dialog" aria-labelledby="modal-text">
+        <div class="modal__load-state"></div>
+        <div id="modal-text" class="modal__text">Loading</div>
+        <button type="button" class="modal__button button">Close</button>
+    </div>
+
+    <span id="network-response" class="toast toast--alert toast--hidden toast--polite">
+        <span class="toast__stage toast" aria-live="polite" aria-labelledby="network-response-title" aria-modal="true">
+            <span class="toast__text toast__group toast">
+                <p id="network-response-title"></p>
+                <button id="network-response-dismiss" aria-label="Close" class="toast__close"></button>
+            </span>
+        </span>
+    </span>
+
+    <span id="update-response" class="toast toast--alert toast--hidden toast--polite">
+        <span class="toast__stage toast" aria-live="polite" aria-labelledby="update-response-title" aria-modal="true">
+            <span class="toast__text toast__group toast">
+                <p id="update-response-title">New Update Available. <a href="/" id="update-response-reload-link">Reload</a></p>
+                <button id="update-response-dismiss" aria-label="Close" class="toast__close"></button>
+            </span>
+        </span>
+    </span>
+
+    <span class="svg-symbols">
+        <svg>
+            <symbol id="icon-play" viewBox="0 0 20 20" preserveAspectRatio="xMidYMid" focusable="false">
+                <polygon fill="currentColor" points="1,0 20,10 1,20"></polygon>
+            </symbol>
+            <symbol id="icon-pause" viewBox="0 0 20 20" preserveAspectRatio="xMidYMid" focusable="false">
+                <rect fill="currentColor" width="6" height="20" x="0" y="0"></rect>
+                <rect fill="currentColor" width="6" height="20" x="12" y="0"></rect>
+            </symbol>
+        </svg>
+    </span>
+
+    <div aria-hidden="true" role="none" style="display: none;">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src=\"\/shared\/js\/jquery-3.3.1.min.js\"><\/script>')</script>
+        <% Html.RenderSiteControls(SiteControlLocation.ContentTop); %>
+        <% Html.RenderSiteControls(SiteControlLocation.ContentBottom); %>
+        <% Html.RenderSiteControls(SiteControlLocation.PageBottom); %>
+    </div>
+
+</body>
+</html>

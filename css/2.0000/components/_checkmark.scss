@@ -1,0 +1,153 @@
+@use "sass:map";
+
+$select: ".checkmark" !default;
+
+$colors: () !default;
+
+$colors: map.merge(
+    (
+        primary: #267706,
+        accent: #7ac142,
+        circle-fill: #eef0ed
+    ),
+    $colors
+);
+
+@mixin base {
+    #{$select} {
+        display: inline-flex;
+
+        svg {
+            $size: 1em;
+
+            width: #{$size};
+            height: #{$size};
+            border-radius: 50%;
+
+            display: inline-block;
+
+            stroke-width: 2;
+            stroke: #fff;
+            stroke-miterlimit: 10;
+            box-shadow: inset 0 0 0 map.get($colors, accent);
+        }
+
+        circle,
+        path {
+            stroke-width: 0.2rem;
+            transform-origin: center center;
+            fill: none;
+        }
+
+        circle {
+            stroke: map.get($colors, primary);
+        }
+
+        path {
+            stroke: white;
+            stroke-dasharray: 48;
+            stroke-dashoffset: 48;
+        }
+
+        @content;
+    }
+}
+
+@mixin in-progress {
+    @keyframes rotate-checkmark-circle {
+        to {
+            transform: rotate(1turn);
+        }
+    }
+
+    #{$select} {
+        &--in-progress {
+            transform-origin: center center;
+            animation: rotate-checkmark-circle 1s
+                cubic-bezier(0.32, 0.75, 0.83, 0.74) infinite;
+
+            @media (prefers-reduced-motion: reduce) {
+                animation-timing-function: linear;
+            }
+
+            circle {
+                stroke-dasharray: 53;
+            }
+
+            #{$select} {
+            }
+
+            @content;
+        }
+    }
+}
+
+@mixin is-checked {
+    @keyframes fill-checkmark {
+        to {
+            box-shadow: inset 0 0 0 10em map.get($colors, accent);
+        }
+    }
+
+    @keyframes scale-checkmark {
+        0%,
+        100% {
+            transform: none;
+        }
+        50% {
+            transform: scale3d(1.1, 1.1, 1);
+        }
+    }
+
+    @keyframes stroke-checkmark {
+        to {
+            fill: none;
+            stroke-dashoffset: 0;
+        }
+    }
+
+    @keyframes stroke-checkmark-circle {
+        to {
+            fill: none;
+            stroke-dasharray: 0;
+        }
+    }
+
+    #{$select} {
+        &--is-checked {
+            svg {
+                animation: fill-checkmark 0.4s ease-in-out 0.4s forwards,
+                    scale-checkmark 0.3s ease-in-out 0.9s both;
+            }
+
+            circle {
+                animation: stroke-checkmark-circle 1s
+                    cubic-bezier(0.65, 0, 0.45, 1) forwards;
+            }
+
+            path {
+                stroke-dashoffset: 0;
+
+                @supports (animation-name: stroke-checkmark) {
+                    stroke-dashoffset: 48;
+
+                    animation: stroke-checkmark 0.3s
+                        cubic-bezier(0.65, 0, 0.45, 1) 0.8s forwards;
+                }
+            }
+
+            @media (prefers-reduced-motion: reduce) {
+                svg,
+                circle,
+                path {
+                    animation-timing-function: linear;
+                }
+            }
+
+            #{$select} {
+            }
+
+            @content;
+        }
+    }
+}

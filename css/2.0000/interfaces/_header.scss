@@ -1,0 +1,21 @@
+@use "sass:map";
+
+// config
+@use "../config/fonts";
+@use "../config/colors";
+@use "../config/queries";
+
+// layout
+@use "../layouts/nav";
+
+// compoents
+@use "../../../Shared/css/template/base/components/skip-link";
+
+@mixin navbar {
+    @include skip-link.new {
+        text-transform: capitalize;
+        font-weight: normal;
+    }
+
+    @include nav.base;
+}

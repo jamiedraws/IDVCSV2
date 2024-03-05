@@ -1,0 +1,93 @@
+@use "sass:map";
+@use "sass:color";
+
+// config
+@use "../config/fonts";
+@use "../config/colors";
+
+// interfaces
+@use "../interfaces/header";
+@use "../interfaces/footer";
+
+// layouts
+@use "../layouts/document";
+@use "../layouts/content";
+@use "../layouts/section" as override-section;
+@use "../../../Shared/css/template/base/layouts/view";
+@use "../../../Shared/css/template/base/layouts/section" with (
+    $container: map.get(document.$sizes, desktop)
+);
+
+// components
+@use "../../../Shared/css/template/base/components/button";
+@use "../../../Shared/css/template/base/components/link";
+@use "../../../Shared/css/template/dtm/components/modal" with (
+    $color: colors.get(light),
+    $background-color: color.adjust(colors.get(primary), $alpha: -0.3)
+);
+@use "../components/toast";
+
+// media
+@use "../../../Shared/css/template/base/media/contain";
+@use "../../../Shared/css/template/base/media/load-item";
+
+// utils
+@use "../../../Shared/css/template/base/utils/defer";
+@use "../../../Shared/css/template/base/utils/delay-input";
+
+// themes
+@use "../../../Shared/css/template/base/themes/background";
+
+// abstracts
+@use "../../../Shared/css/template/base/abstracts/icons";
+@use "../abstracts/response";
+
+@mixin critical {
+    @include fonts.request;
+    @include colors.selectors;
+    @include document.base;
+
+    @include view.new;
+    @include view.set-anchor-position(
+        $static-amount: 4rem,
+        $dynamic-amount: 3.75rem
+    );
+    @include section.new;
+    @include override-section.override;
+
+    @include link.base;
+
+    @include contain.new;
+    @include load-item.new;
+
+    @include defer.new;
+    @include delay-input.new;
+    @include modal.new;
+
+    @include header.navbar;
+
+    @include content.base;
+    @include content.text;
+    @include content.title-text;
+
+    @include footer.text-list-copyright;
+
+    @include icons.new;
+
+    @include response.base;
+    @include response.in-progress;
+    @include response.success;
+
+    @include toast.base;
+
+    @include button.new {
+        font-family: inherit;
+        font-weight: normal;
+    }
+
+    @content;
+}
+
+@mixin defer {
+    @content;
+}

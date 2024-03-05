@@ -1,0 +1,59 @@
+@use "sass:map";
+
+$select: ".font" !default;
+
+$list: (
+    primary: museo-sans
+);
+
+@function get($name) {
+    @return map.get($list, $name);
+}
+
+@mixin selectors {
+    #{$select} {
+        @each $name, $font in $list {
+            &-#{$name} {
+                font-family: $font;
+            }
+        }
+    }
+}
+
+@mixin request {
+    @font-face {
+        font-family: "museo-sans";
+        src: url(/fonts/museo-sans-100.woff2) format("woff2"),
+            url(/fonts/museo-sans-100.woff) format("woff");
+        font-display: swap;
+        font-style: normal;
+        font-weight: 100;
+    }
+
+    @font-face {
+        font-family: "museo-sans";
+        src: url(/fonts/museo-sans-300.woff2) format("woff2"),
+            url(/fonts/museo-sans-300.woff) format("woff");
+        font-display: swap;
+        font-style: normal;
+        font-weight: 300;
+    }
+
+    @font-face {
+        font-family: "museo-sans";
+        src: url(/fonts/museo-sans-500.woff2) format("woff2"),
+            url(/fonts/museo-sans-500.woff) format("woff");
+        font-display: swap;
+        font-style: normal;
+        font-weight: 500;
+    }
+
+    @font-face {
+        font-family: "museo-sans";
+        src: url(/fonts/museo-sans-900.woff2) format("woff2"),
+            url(/fonts/museo-sans-900.woff) format("woff");
+        font-display: swap;
+        font-style: normal;
+        font-weight: 900;
+    }
+}

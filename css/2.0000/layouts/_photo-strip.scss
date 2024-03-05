@@ -1,0 +1,99 @@
+$select: ".photo-strip" !default;
+
+// config
+@use "../config/colors";
+
+// themes
+@use "../../../Shared/css/template/base/themes/background";
+
+// media
+@use "../../../Shared/css/template/base/media/contain";
+
+@mixin base {
+    #{$select} {
+        @include background.color-map(
+            colors.get(highlight),
+            colors.get(accent)
+        );
+
+        @include background.contain {
+            background: colors.get(accent);
+        }
+
+        &__in {
+            padding: 6em 1em;
+        }
+
+        &__group {
+            @media all and (orientation: portrait) {
+                font-size: 1.5vmax;
+            }
+
+            @media all and (orientation: landscape) {
+                font-size: 1.5vmin;
+            }
+        }
+
+        &__button-slide {
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        &__description {
+            text-align: right;
+            font-size: 1.4em;
+        }
+
+        &__toggle {
+            position: sticky;
+            z-index: 1;
+            bottom: 1em;
+            left: 0;
+            right: 0;
+            margin: -4.75em auto 2em;
+            order: 1;
+            font-size: 1.5em;
+        }
+
+        @content;
+    }
+}
+
+@mixin remove-toggle {
+    #{$select} {
+        &--remove-toggle {
+            #{$select} {
+                &__toggle {
+                    opacity: 0;
+                    transform: translateY(100%);
+                    pointer-events: none;
+                }
+            }
+
+            @content;
+        }
+    }
+}
+
+@mixin lg {
+    #{$select} {
+        &--lg {
+            #{$select} {
+            }
+
+            @content;
+        }
+    }
+}
+
+@mixin sm {
+    #{$select} {
+        &--sm {
+            #{$select} {
+            }
+
+            @content;
+        }
+    }
+}

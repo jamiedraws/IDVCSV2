@@ -1,0 +1,91 @@
+$select: ".footer" !default;
+
+// config
+@use "../config/colors";
+
+// media
+@use "../../../Shared/css/template/base/media/contain";
+
+// abstracts
+@use "../../../Shared/css/template/base/abstracts/group";
+@use "../../../Shared/css/template/base/abstracts/copy";
+
+// components
+@use "../../../Shared/css/template/base/components/list";
+
+@mixin base {
+    #{contain.$select} {
+        &--idv-icon-circle {
+            @include contain.ratio(137/150) {
+                max-width: 4em;
+            }
+        }
+    }
+
+    #{$select} {
+        font-size: 1em;
+        overflow: hidden;
+        background-color: #a8a8a8;
+        color: white;
+        margin-top: 0.25em;
+        padding: 1em;
+        line-height: 2;
+
+        nav {
+            @include list.structure($offset: 0, $gap: 0.5em);
+
+            > * {
+                display: block;
+                font-weight: 400;
+            }
+        }
+
+        &__list-text-copyright {
+            margin: 2em auto 0;
+            max-width: 78em;
+        }
+
+        &__group {
+            @include group.contain(1em);
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+
+        &__text {
+            color: colors.get(accent);
+        }
+
+        &__text-link {
+            a {
+                display: block;
+                text-decoration: underline;
+
+                &:hover,
+                &:focus {
+                    color: #c6c4c4;
+                }
+            }
+        }
+
+        &__list-text,
+        &__copyright {
+            flex: 0 1 23em;
+            @include copy.separate;
+        }
+
+        &__list-text &__text-link {
+            max-width: 22em;
+        }
+
+        &__copyright &__text-link {
+            max-width: 17.5em;
+        }
+
+        &__icon {
+            float: right;
+            margin: 1.5em 1em;
+        }
+
+        @content;
+    }
+}

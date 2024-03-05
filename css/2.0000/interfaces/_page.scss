@@ -1,0 +1,77 @@
+// interfaces
+@use "../interfaces/app";
+@use "../interfaces/form";
+
+// layouts
+@use "../layouts/content";
+@use "../layouts/hero";
+@use "../layouts/slide";
+@use "../layouts/photo-strip";
+@use "../layouts/emphasize-picture-text";
+
+//abstracts
+@use "../abstracts/content-reveal";
+
+// components
+@use "../components/shape-icon-button";
+
+@mixin index {
+    @include app.defer {
+        @include hero.base;
+        @include hero.background-video;
+
+        @include shape-icon-button.base;
+        @include shape-icon-button.in-progress;
+        @include shape-icon-button.is-hidden;
+
+        @include slide.base;
+        @include slide.brand-portfolio;
+        @include slide.building-brand;
+        @include slide.fade;
+
+        @include content.contain-title-text;
+        @include content.title-images;
+        @include content.text-image;
+
+        @include content-reveal.base;
+    }
+}
+
+@mixin who-we-are {
+    @include app.defer {
+        @include hero.base;
+        @include hero.title-bg;
+
+        @include content.icon-text;
+
+        @include slide.base;
+        @include slide.photo-strip-lg;
+        @include slide.photo-strip-sm;
+        @include slide.will-auto-scroll;
+        @include shape-icon-button.base;
+
+        @include photo-strip.base;
+        @include photo-strip.lg;
+        @include photo-strip.sm;
+        @include photo-strip.remove-toggle;
+
+        @include content-reveal.base;
+    }
+}
+
+@mixin idv-ventures {
+    @include app.defer {
+        @include hero.base;
+        @include hero.title-bg;
+
+        @include content.contain-title-text;
+        @include content.icon-caption-text;
+
+        @include emphasize-picture-text.base;
+        @include emphasize-picture-text.flawless-display;
+
+        @include content-reveal.base;
+
+        @include form.contact;
+    }
+}

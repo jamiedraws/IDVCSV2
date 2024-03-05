@@ -1,0 +1,98 @@
+$select: ".form" !default;
+$field-size: inherit !default;
+
+// config
+@use "../config/queries";
+@use "../config/colors";
+
+// layouts
+@use "../../../Shared/css/template/base/layouts/form" with ($select: $select, $mq: (
+    desktop: queries.get(document-sm)
+));
+
+// abstracts
+@use "../../../Shared/css/template/base/abstracts/group";
+@use "../../../Shared/css/template/base/abstracts/position";
+
+// components
+@use "../../../Shared/css/template/base/components/button";
+
+@mixin base {
+    @include form.new;
+    @include form.field-label(
+        $border: transparent,
+        $background-color: colors.get(highlight)
+    );
+
+    #{$select} {
+        &__fieldset {
+            box-shadow: 0 0.1em 0.3em rgba(0, 0, 0, 0.25);
+            background: white;
+            border: 0;
+            padding: 0;
+            margin: 0;
+            min-width: 0;
+        }
+
+        &__legend {
+            margin: auto;
+            background: white;
+            color: colors.get(accent-alternative);
+            padding: 0 1rem;
+            text-align: center;
+        }
+
+        &__disclaimer {
+            text-align: center;
+        }
+
+        &__text {
+            font-size: 1.3em;
+        }
+
+        &__group {
+            @include group.contain(0.5em);
+            @include group.flexchild(1 1 20em);
+            align-items: flex-start;
+
+            padding: 0 1.5em 1.5em;
+        }
+
+        &__textarea-label,
+        &__button {
+            flex: 1 1 100%;
+        }
+
+        &__button {
+            text-align: center;
+        }
+
+        &__textarea-label {
+            margin-top: 0;
+        }
+
+        input,
+        textarea,
+        label {
+            font-size: inherit;
+        }
+
+        label {
+            padding: 0.25em;
+            margin: 0 0 0 0.3em;
+            flex: 0 1 auto;
+            line-height: 1;
+            position: relative;
+        }
+
+        button {
+            @include button.color-map(
+                colors.get(light),
+                colors.get(callout-alternative)
+            );
+            border-color: colors.get(callout-alternative);
+        }
+
+        @content;
+    }
+}

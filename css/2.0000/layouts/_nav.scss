@@ -1,0 +1,102 @@
+@use "sass:map";
+
+$select: ".nav" !default;
+
+$mq: (
+    container-max: 68.75rem,
+    container-min: 68.75rem
+);
+
+// config
+@use "../config/fonts";
+@use "../config/colors";
+@use "../config/queries";
+
+// layout
+@use "../../../Shared/css/template/base/layouts/nav" with (
+    $colors: (
+        background: colors.get(light),
+        text: colors.get(primary),
+        button-close: colors.get(primary)
+    ),
+    $mq: $mq
+);
+
+// media
+@use "../../../Shared/css/template/base/media/contain";
+
+@mixin base {
+    #{contain.$select} {
+        &--logo {
+            @include contain.ratio(383/113) {
+                max-width: 14em;
+            }
+        }
+    }
+
+    @include nav.new {
+        text-transform: uppercase;
+
+        &__link {
+            padding: 1em;
+            transition: color 0.3s ease-in-out;
+            font-weight: normal;
+        }
+
+        & &__link {
+            &:hover,
+            &:focus {
+                text-decoration: none;
+            }
+        }
+    }
+
+    @include nav.bar {
+
+        &__in {
+           padding-top: .75em;
+            padding-bottom: .75em;
+        }
+
+        &__pane {
+            flex-grow: 0;
+            flex-basis: 30em;
+        }
+
+        &__logo {
+            display: none;
+        }
+
+        &__list {
+            justify-content: flex-end;
+        }
+
+        &__list > a {
+            flex-grow: 0;
+        }
+
+        &__button {
+            padding-right: 0;
+        }
+    }
+
+    @include nav.drawer {
+        &__in {
+            padding-top: 0.5rem;
+            padding-bottom: 0.5rem;
+        }
+
+        &__logo {
+            flex-grow: 1;
+            padding: 0;
+        }
+
+        &__label {
+            margin-left: 1em;
+        }
+    }
+
+    #{$select} {
+        @content;
+    }
+}

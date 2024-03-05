@@ -1,0 +1,81 @@
+@use "sass:map";
+@use "sass:color";
+
+$sizes: (
+    desktop: 104rem
+);
+
+// config
+@use "../config/fonts";
+@use "../config/colors";
+@use "../config/queries";
+
+// layouts
+@use "../../../Shared/css/template/base/layouts/document";
+
+// themes
+@use "../../../Shared/css/template/base/themes/background";
+
+@mixin base {
+    @include document.base;
+
+    html {
+        // reduced from .9 to .8 -JS
+        $min-font-size: 0.8rem;
+
+        font: 500 #{$min-font-size}/ 1.5 fonts.get(primary), sans-serif;
+        letter-spacing: -0.025rem;
+        font-size: clamp(#{$min-font-size}, 1vmax, 1rem);
+
+        @include background.color-map(colors.get(light), colors.get(primary));
+    }
+
+    @include background.contain {
+        // background: whitesmoke;
+    }
+
+    @include list-marker {
+        background-image: url(/images/icons/chevron.svg);
+    }
+
+    @include background.name-color-map(
+        "primary",
+        colors.get(primary),
+        colors.get(light)
+    );
+
+    @include background.name-color-map(
+        "accent",
+        colors.get(accent),
+        colors.get(primary)
+    ) {
+        @include list-marker {
+            background-image: url(/images/icons/chevron-primary.svg);
+        }
+    }
+
+    :link,
+    :visited {
+        text-decoration: none;
+        transition: color .3s ease-in-out;
+
+        &:hover,
+        &:focus {
+            color: #c6c4c4;
+        }
+    }
+
+    // removing the outline at ideavillage's request
+    a:focus {
+        outline: none;
+    }
+
+    @content;
+}
+
+@mixin list-marker {
+    ul > li::before,
+    ol > li::before {
+        @content;
+    }
+}

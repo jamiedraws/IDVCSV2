@@ -1,0 +1,48 @@
+$select: ".flip" !default;
+
+// abstracts
+@use "../../../Shared/css/template/base/abstracts/position";
+
+@mixin base {
+    #{$select} {
+        perspective: 100rem;
+
+        &__in {
+            position: relative;
+
+            transform-style: preserve-3d;
+
+            @media (prefers-reduced-motion: reduce) {
+                transition: none;
+            }
+        }
+
+        &__frontside,
+        &__backside {
+            transition: transform 0.8s;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            transform-style: preserve-3d;
+        }
+
+        &__frontside {
+            position: relative;
+            transform: rotateX(0);
+        }
+
+        &__backside {
+            @include position.center-absolute;
+            transform: rotateX(0.5turn);
+        }
+
+        &--show-backside &__frontside {
+            transform: rotateX(0.5turn);
+        }
+
+        &--show-backside &__backside {
+            transform: rotateX(0);
+        }
+
+        @content;
+    }
+}

@@ -1,0 +1,11 @@
+@use "sass:map";
+
+$list: (
+    document-sm: 37.5rem,
+    document-lg: 55rem,
+    navbar: 68.75rem
+);
+
+@function get($name) {
+    @return map.get($list, $name);
+}

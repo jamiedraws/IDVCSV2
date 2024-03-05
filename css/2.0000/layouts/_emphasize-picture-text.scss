@@ -1,0 +1,164 @@
+$select: ".emphasize-picture-text" !default;
+
+// config
+@use "../config/colors";
+@use "../config/queries";
+
+// media
+@use "../../../Shared/css/template/base/media/contain";
+
+// components
+@use "../../../Shared/css/template/base/components/list";
+
+// abstracts
+@use "../../../Shared/css/template/base/abstracts/group";
+@use "../../../Shared/css/template/base/abstracts/copy";
+@use "../../../Shared/css/template/base/abstracts/position";
+
+// themes
+@use "../../../Shared/css/template/base/themes/background";
+
+@mixin base {
+    #{$select} {
+        &__group {
+            @include group.contain(1em);
+        }
+
+        @content;
+    }
+}
+
+@mixin flawless-display {
+    #{contain.$select} {
+        &--flawless-display {
+            @include contain.ratio(335/839);
+            max-width: 16.1em;
+        }
+
+        &--copperfit-ice-display {
+            @include contain.ratio(263/900);
+            max-width: 13em;
+        }
+
+        &--microtouch-titanium-display {
+            @include contain.ratio(264/900);
+            max-width: 13.35em;
+        }
+    }
+
+    #{$select} {
+        $canvas-query-max: 79.6875rem;
+        $canvas-query-min: 40rem;
+
+        &--flawless-display {
+            @media all and (max-width: queries.get(document-lg)) {
+                font-size: 0.75em;
+                font-size: min(0.75em, 2.5vw);
+            }
+
+            ul {
+                @include list.structure($offset: 1.25em, $gap: 1em);
+            }
+
+            li {
+                font-size: 1.9em;
+                padding-left: 0.5em;
+                border-left: 0.1em solid colors.get(callout);
+            }
+
+            #{$select} {
+                &__bg {
+                    background: colors.get(highlight);
+                    @include position.center-absolute;
+
+                    @media all and (min-width: $canvas-query-max) {
+                        clip-path: inset(7em 0 2em);
+
+                        > img {
+                            left: auto;
+                            right: 0;
+                            width: auto;
+                        }
+                    }
+
+                    > img {
+                        transform-origin: center 30%;
+                        transform: scale(1.3);
+                    }
+                }
+
+                &__group {
+                    align-items: center;
+                    justify-content: center;
+                    position: relative;
+                    z-index: 1;
+                }
+
+                &__title {
+                    font-size: 5.8em;
+                    font-weight: 100;
+                    letter-spacing: -0.025em;
+                }
+
+                &__text {
+                    flex: 0 1 48em;
+                    @include copy.separate;
+                    font-size: 0.85em;
+                    margin: 2em;
+                }
+            }
+
+            @media all and (min-width: $canvas-query-min) {
+                #{$select} {
+                    &__copperfit-ice-display {
+                        margin-bottom: -4em;
+                    }
+
+                    &__microtouch-titanium-display {
+                        margin-bottom: -4em;
+                    }
+                }
+            }
+
+            @media all and (max-width: $canvas-query-max) {
+                #{$select} {
+                    &__text {
+                        flex: 1 1 100%;
+                        max-width: 55em;
+                    }
+                }
+            }
+
+            @media all and (min-width: $canvas-query-min) and (max-width: $canvas-query-max) {
+                #{$select} {
+                    &__text {
+                        order: 1;
+                        margin-top: -4em;
+                    }
+                }
+            }
+
+            @media all and (max-width: $canvas-query-min) {
+                #{$select} {
+                    &__title {
+                        font-size: 4em;
+                    }
+
+                    &__text {
+                        margin: -3em 0 3em;
+                    }
+
+                    &__copperfit-ice-display {
+                        margin-bottom: -4em;
+                    }
+
+                    &__microtouch-titanium-display {
+                        margin-bottom: -4em;
+                    }
+                }
+            }
+
+            @content;
+        }
+    }
+}

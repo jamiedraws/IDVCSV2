@@ -1,0 +1,100 @@
+$select: ".hero" !default;
+
+// config
+@use "../config/colors";
+@use "../config/queries";
+
+// media
+@use "../../../Shared/css/template/base/media/contain";
+
+// themes
+@use "../../../Shared/css/template/base/themes/background";
+
+// abstracts
+@use "../../../Shared/css/template/base/abstracts/position";
+@use "../abstracts/defer-vimeo";
+
+@mixin base {
+    #{$select} {
+        @content;
+    }
+}
+
+@mixin background-video {
+    @include defer-vimeo.new;
+
+    #{contain.$select} {
+        &--hero {
+            @include contain.ratio(1920/1080);
+        }
+    }
+
+    #{$select} {
+        &--background-video {
+            position: relative;
+
+            #{$select} {
+                &__video,
+                &__button {
+                    @include position.center-absolute;
+                    z-index: 1;
+                }
+
+                &__video {
+                    transition: opacity 0.3s ease-in-out;
+                    background: colors.get(accent);
+                    box-shadow: inset 0 0 1em black;
+                }
+
+                &__button {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    font-size: 1.5em;
+                }
+            }
+
+            @content;
+        }
+    }
+}
+
+@mixin title-bg {
+    #{$select} {
+        &--title-bg {
+            @include background.color-map(
+                linear-gradient(#e8e7e8, #bbbbbc, #e8e7e8),
+                colors.get(accent)
+            );
+            color: colors.get(light);
+            text-shadow: 0 0 1em colors.get(dark);
+
+            #{$select} {
+                &__title {
+                    text-align: center;
+                    font-size: 6.8em;
+                    font-weight: 100;
+
+                    @media all and (max-width: queries.get(document-lg)) {
+                        font-size: 3em;
+                        font-size: clamp(3em, 12vw, 6.8em);
+                    }
+                }
+            }
+
+            @content;
+        }
+
+        &--WWA_banner {
+            background: url("/images/2.0000/WWA_banner-no-text.jpg");
+            background-repeat: no-repeat;
+            background-size: cover;
+
+            @media only screen and (max-width: 850px) {
+                @include background.color-map(
+                    linear-gradient(#e8e7e8, #bbbbbc, #e8e7e8),
+                );
+            }
+        }
+    }
+}

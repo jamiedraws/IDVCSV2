@@ -1,0 +1,327 @@
+$select: ".slide" !default;
+
+// config
+@use "../config/colors";
+
+// layouts
+@use "../../../Shared/css/slide/1/layouts/slide" with ($select: $select);
+
+// abstracts
+@use "../../../Shared/css/template/base/abstracts/group";
+
+// media
+@use "../../../Shared/css/template/base/media/contain";
+
+// utilities
+@use "../../../Shared/css/slide/1/utilities/ui";
+
+@mixin base {
+    @include slide.new;
+
+    #{$select} {
+        &__into {
+            margin: 0;
+
+            &::-webkit-scrollbar {
+                font-size: 1rem;
+            }
+        }
+
+        &__item {
+            align-items: stretch;
+        }
+
+        @content;
+    }
+}
+
+@mixin brand-portfolio {
+    $size: 25.5em;
+
+    #{contain.$select} {
+        &--brand-portfolio {
+            @include contain.ratio(1/1) {
+                max-width: #{$size};
+                background: colors.get(placeholder);
+            }
+        }
+    }
+
+    #{$select} {
+        &--brand-portfolio {
+            max-width: #{$size};
+            flex-basis: #{$size};
+
+            #{$select} {
+            }
+
+            @content;
+        }
+    }
+}
+
+@mixin building-brand {
+    $size: 49.15em;
+
+    #{contain.$select} {
+        &--building-brand {
+            @include contain.ratio(983/862) {
+                background: colors.get(placeholder);
+            }
+        }
+    }
+
+    #{$select} {
+        &--building-brand {
+            #{$select} {
+            }
+
+            @content;
+        }
+    }
+}
+
+%set-gutter {
+    #{$select} {
+        &__into {
+            margin-bottom: 1em;
+        }
+
+        &__item {
+            margin: 0 0.5em;
+        }
+    }
+}
+
+@mixin photo-strip-lg {
+    #{contain.$select} {
+        &--photo-strip-lg {
+            &-1 {
+                @include contain.ratio(297/400);
+                width: 37.125em;
+            }
+
+            &-2 {
+                @include contain.ratio(117/200);
+                width: 29.25em;
+            }
+
+            &-3 {
+                @include contain.ratio(77/100);
+                width: 38.5em;
+            }
+
+            &-4 {
+                @include contain.ratio(69/100);
+                width: 34.5em;
+            }
+
+            &-5 {
+                @include contain.ratio(967/800);
+                width: 60.4375em;
+            }
+
+            &-6 {
+                @include contain.ratio(1/1);
+                width: 50em;
+            }
+        }
+    }
+
+    #{$select} {
+        &--photo-strip-lg {
+            font-size: 0.7em;
+
+            @extend %set-gutter;
+
+            #{$select} {
+                &__into {
+                    height: 47em;
+                }
+            }
+
+            @content;
+        }
+    }
+}
+
+@mixin photo-strip-sm {
+    #{contain.$select} {
+        &--photo-strip-sm {
+            &-1 {
+                @include contain.ratio(1/1);
+                width: 25em;
+            }
+
+            &-2 {
+                @include contain.ratio(357/400);
+                width: 22.3125em;
+            }
+
+            &-3 {
+                @include contain.ratio(267/400);
+                width: 16.6875em;
+            }
+
+            &-4 {
+                @include contain.ratio(292/400);
+                width: 18.25em;
+            }
+
+            &-5 {
+                @include contain.ratio(288/400);
+                width: 18em;
+            }
+
+            &-6 {
+                @include contain.ratio(281/400);
+                width: 17.5625em;
+            }
+
+            &-7 {
+                @include contain.ratio(103/80);
+                width: 32.1875em;
+            }
+
+            &-8 {
+                @include contain.ratio(1/1);
+                width: 25em;
+            }
+
+            &-9 {
+                @include contain.ratio(241/400);
+                width: 15.0625em;
+            }
+
+            &-10 {
+                @include contain.ratio(147/100);
+                width: 36.75em;
+            }
+
+            &-11 {
+                @include contain.ratio(159/200);
+                width: 19.875em;
+            }
+        }
+    }
+
+    #{$select} {
+        &--photo-strip-sm {
+            font-size: 0.7em;
+
+            @extend %set-gutter;
+
+            #{$select} {
+                &__into {
+                    height: 25em;
+                }
+            }
+
+            @content;
+        }
+    }
+}
+
+@mixin will-auto-scroll {
+    @keyframes slide-auto-scroll {
+        to {
+            transform: translateX(-50%);
+        }
+    }
+
+    #{$select} {
+        &--will-auto-scroll {
+            #{$select} {
+                &__into {
+                    display: block;
+                    position: relative;
+                }
+
+                &__scroll {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    overflow: hidden;
+                    white-space: nowrap;
+
+                    transition: opacity 0.3s ease-in-out;
+                }
+
+                &__item {
+                    display: inline-block;
+                }
+
+                &__observer {
+                    position: fixed;
+                }
+            }
+
+            @content;
+        }
+
+        &--enable-auto-scroll {
+            #{$select} {
+                &__into {
+                    overflow: hidden;
+                }
+
+                &__scroll {
+                    animation: slide-auto-scroll 120s linear infinite;
+                }
+            }
+        }
+
+        &--pause-auto-scroll {
+            #{$select} {
+                &__scroll {
+                    animation-play-state: paused;
+                }
+            }
+        }
+
+        &--will-reverse-auto-scroll {
+            #{$select} {
+                &__scroll {
+                    animation-direction: reverse;
+                }
+            }
+        }
+    }
+}
+
+@mixin fade {
+    #{$select} {
+        &--fade {
+            #{$select} {
+                &__into {
+                    position: relative;
+                }
+
+                &__item {
+                    transition: opacity 1s ease-in-out;
+
+                    @media (prefers-reduced-motion: reduce) {
+                        transition: none;
+                    }
+
+                    opacity: 0;
+                    pointer-events: none;
+
+                    &:not(:first-child) {
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        right: 0;
+                        z-index: 1;
+                    }
+
+                    &--current {
+                        z-index: 2;
+                        opacity: 1;
+                        pointer-events: all;
+                    }
+                }
+            }
+        }
+    }
+}

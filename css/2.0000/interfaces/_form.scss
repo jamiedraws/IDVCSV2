@@ -1,0 +1,29 @@
+// config
+@use "../config/queries";
+
+// layouts
+@use "../layouts/form";
+
+// components
+@use "../../../Shared/css/template/base/components/validate" with (
+    $attribute: "[required]",
+    $font-size: inherit
+);
+@use "../components/checkmark";
+
+// abstracts
+@use "../../../Shared/css/template/base/abstracts/group";
+@use "../abstracts/flip";
+
+@mixin contact {
+    @include form.base;
+
+    @include validate.new;
+    @include validate.use-label-motion;
+
+    @include checkmark.base;
+    @include checkmark.in-progress;
+    @include checkmark.is-checked;
+
+    @include flip.base;
+}

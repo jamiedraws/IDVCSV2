@@ -1,0 +1,36 @@
+$select: ".defer-vimeo" !default;
+
+// abstracts
+@use "../../../Shared/css/template/base/abstracts/position";
+
+// utils
+@use "../../../Shared/css/template/dtm/utils/tailspin";
+
+@mixin new {
+    #{$select} {
+        &__vimeo {
+            &::before {
+                content: "";
+                @include position.center-absolute;
+                @include tailspin.svg-tailspin(
+                    (
+                        ondemand: true,
+                        fill: black
+                    )
+                );
+                width: 100%;
+                height: 100%;
+            }
+        }
+
+        &__picture {
+            will-change: opacity;
+            transition: opacity 0.3s ease-in-out;
+            opacity: 1;
+        }
+
+        &--has-vimeo &__picture {
+            opacity: 0;
+        }
+    }
+}

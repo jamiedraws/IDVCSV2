@@ -1,0 +1,30 @@
+$select: ".toast" !default;
+
+// config
+@use "../config/colors";
+
+// components
+@use "../../../Shared/css/template/base/components/toast" with ($select: $select);
+
+@mixin base {
+    @include toast.new;
+    @include toast.polite;
+
+    #{$select} {
+        align-items: flex-end;
+
+        &__stage {
+            padding: 1.5rem;
+        }
+
+        &__text {
+            font-size: 1.1em;
+        }
+
+        a {
+            color: colors.get(callout);
+        }
+
+        @content;
+    }
+}

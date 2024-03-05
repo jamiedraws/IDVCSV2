@@ -1,0 +1,6 @@
+// layouts
+@use "../layouts/footer";
+
+@mixin text-list-copyright {
+    @include footer.base;
+}

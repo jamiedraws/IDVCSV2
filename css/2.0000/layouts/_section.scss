@@ -1,0 +1,28 @@
+@use "sass:map";
+
+$select: ".section" !default;
+
+// config
+@use "../config/queries";
+
+@mixin override {
+    #{$select} {
+        &__in {
+            @include set-frame;
+        }
+
+        @content;
+    }
+}
+
+@mixin set-frame {
+    padding: 1rem;
+
+    @media all and (min-width: queries.get(document-sm)) {
+        padding: 3rem 2rem;
+    }
+
+    @media all and (min-width: queries.get(navbar)) {
+        padding: 3em;
+    }
+}
